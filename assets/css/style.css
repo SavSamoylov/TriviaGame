@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
+*{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body{
+	background: #8caea5;
+	font-family: "Roboto", sans-serif;
+}
+
+.quizWrap{
+	width: 865px;
+	margin:60px auto;
+	background: #eff2f4;
+	overflow: hidden;
+	
+	box-shadow: 0px 6px 10px #536c5d;
+}
+
+.sidebar{
+	width:239px;
+	float:left;
+	background: #ffffff;
+	height:449px;
+	padding: 40px 20px;
+	border-right: 2px solid #e6e6e6;
+}
+
+.sidebar h3{
+	font-weight:500;
+	color: #999999;
+	text-align: center;
+	font-size:18px;
+}
+
+.timerMsg{
+	display: none;
+}
+
+.timerWrap{
+	position:relative;
+	margin:25px auto;
+	width:173px;
+	height:173px;
+	border: 18px solid #eff2f4;
+	border-radius: 173px;
+}
+
+.timerWrap h3{
+	position:absolute;
+	font-size:120px;
+	color: #2e3345;
+	left:0;
+	right:0;
+	top:10px;
+}
+
+.progressWrap{
+	margin: 0 0 0 13px;
+}
+
+.prog{
+	float:left;
+	width:35px;
+	height:25px;
+	background: #eff2f4;
+	margin:7px 5px;
+	border-radius: 5px;
+}
+
+.content{
+	width:626px;
+	float:left;
+	height:449px;
+	padding:40px 20px;
+}
+
+.introScreen h2{
+	margin:0 0 40px;
+	font-size:30px;
+	color:#666;
+	font-weight:500;
+}
+
+.introScreen p{
+	color:#666;
+	padding:10px 0;
+	font-size:18px;
+}
+
+.startButton{
+	width:139px;
+	height:39px;
+	color:#ffffff;
+	background: #6abc4e;
+	border:none;
+	border-bottom:2px solid green;
+	border-radius: 5px;
+	outline: none;
+	cursor:pointer;
+	font-size:16px;
+}
+
+.buttonWrap{
+	width: 139px;
+	margin:auto;
+}
+
+.question{
+	font-size:20px;
+	color: #666666;
+	padding-bottom: 20px;
+}
+
+.answer{
+	background: #ffffff;
+	height:60px;
+	line-height: 60px;
+	font-size:20px;
+	border: 1px solid #dbe3de;
+	margin:10px 0;
+	cursor: pointer;
+	padding:0 15px;
+	color: #666666;
+}
+
+.answer:hover{
+	border: 1px solid #8caea5;
+}
+
+.correct{
+	background: #6abc4e;
+	color:#ffffff;
+}
+
+.incorrect{
+	background: #ff8080;
+	color:#666666;
+}
+
+.feedbackField{
+	position: relative;
+	float:left;
+	background: #2e3345;
+	width:100%;
+	height:68px;
+	line-height: 68px;
+	color:#ffffff;
+	padding:0 20px;
+	text-align: right;
+	font-size:20px;
+}
