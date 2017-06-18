@@ -1,21 +1,6 @@
-// You'll create a trivia game that shows only one question until the player answers it or their time runs out.
+$(document).ready(function (){
 
-// If the player selects the correct answer, show a screen congratulating them for choosing the right option.
-
-// After a few seconds, display the next question -- do this without user input.
-
-// The scenario is similar for wrong answers and time-outs.
-
-// If the player runs out of time, tell the player that time's up and display the correct answer. 
-
-// Wait a few seconds, then show the next question.
-
-// If the player chooses the wrong answer, tell the player they selected the wrong option and then display 
-// the correct answer. Wait a few seconds, then show the next question.
-
-// On the final screen, show the number of correct answers, incorrect answers, and an option to 
-// restart the game (without reloading the page).
-
+// An array of question objects.
 var questions = [
 	{
 		question: "Question #1?",
@@ -42,7 +27,6 @@ var questions = [
 var quiz = {
 	correct: 0,
 	incorrect: 0,
-	counter: 30,
 	questionCount: 0,
 	questionInterval: null ,
 	startQuiz: function (){
@@ -53,15 +37,28 @@ var quiz = {
 		})
 	},
 	displayQuestion: function(){
-		
+		// Question Countdown Value.
+		var counter = 30;
+		// Clear any feedback messages from previous results page.
 		$(".feedbackField").empty();
 
 
-		// Load Question and Answers
+		// Load Question and Answers if we have a question left in the questions array.
 		if (questions[quiz.questionCount] !== undefined){
-
-			$(".quizTimer").html("Time remaining: "+quiz.counter+" seconds");
-			var questionTimer = setInterval(quiz.startCounter, 1000);
+			var correctA = questions[quiz.questionCount].correctAnswer;
+			$(".quizTimer").html("Time remaining: "+counter+" seconds");
+			var questionTimer = setInterval(startCounter, 1000);
+			function startCounter (){
+				$(".quizTimer").html("Time remaining: "+counter+" seconds")
+				counter--;
+				if (counter <= 0){
+					clearInterval(questionTimer);
+					console.log("Out of Time");
+					$(".feedbackField").html("Time's Up! The correct Answer was "+questions[quiz.questionCount].answers[correctA-1]);
+					quiz.incorrect++;
+					quiz.questionInterval = setInterval(quiz.nextQuestion, 3000);		
+				}
+			}
 
 			// Display Question
 			$(".question").append(questions[quiz.questionCount].question);
@@ -82,26 +79,23 @@ var quiz = {
 			$(".answer").on("click", function(){
 			//Stop counter
 			clearInterval(questionTimer);
-			var correct = questions[quiz.questionCount].correctAnswer;
-			//console.log($(this).attr("id"));
-			if (correct === parseInt($(this).attr("id"))){
-				console.log("That is correct Sir!");
+			if (correctA === parseInt($(this).attr("id"))){
 				// If correct, display "Congratulations Message" Field Message.
 				$(".feedbackField").html("Congratulations!");
 				quiz.correct++;
 				// Load next question;
-				questionInterval = setInterval(quiz.nextQuestion, 500);	 
+				quiz.questionInterval = setInterval(quiz.nextQuestion, 3000);	 
 			} else {
-				console.log("Not so fast you fiend!");
-				$(".feedbackField").html("Not so fast you fiend! The correct Answer was "+questions[quiz.questionCount].answers[correct-1]);
+				$(".feedbackField").html("Not so fast you fiend! The correct Answer was "+questions[quiz.questionCount].answers[correctA-1]);
 				quiz.incorrect++;
-				questionInterval = setInterval(quiz.nextQuestion, 500);		
+				quiz.questionInterval = setInterval(quiz.nextQuestion, 3000);		
 			}
 			})
+
+
 	},
 	nextQuestion: function(){
-		quiz.counter = 30;
-		clearInterval(questionInterval);
+		clearInterval(quiz.questionInterval);
 		$(".question").empty();
 		$("#answerField").empty();
 		$(".feedbackField").empty();
@@ -109,17 +103,14 @@ var quiz = {
 		quiz.displayQuestion();
 	},
 	endScreen: function(){
-		quiz.counter = 30;
 		$(".feedbackField").html("You got "+quiz.correct+" questions correct, and "+quiz.incorrect+" questions incorrect.");
 		$(".startButton").show();
 		$(".quizTimer").html("");
 		quiz.questionCount = 0; 
 		quiz.correct = 0; 
 		quiz.incorrect = 0; 	},
-	startCounter: function(){
-		$(".quizTimer").html("Time remaining: "+quiz.counter+" seconds")
-		quiz.counter--;
-	},
 }
 
 quiz.startQuiz();
+
+});
